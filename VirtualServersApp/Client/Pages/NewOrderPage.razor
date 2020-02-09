@@ -15,7 +15,7 @@
             <label>
                 Product:
                 <InputSelect class="form-control" @bind-Value="@OrderModel.StringProductId">
-                    @foreach (var product in productRepository.GetList().OrderBy(p => p.Amount).OrderBy(p => p.ProductTypeId)) {
+                    @foreach (var product in productRepository.GetList().Where(p => p.Price > 0).OrderBy(p => p.Amount).OrderBy(p => p.ProductTypeId)) {
                         <option value="@product.Id.ToString()">@($"{product.Amount} | {product.Price.ToString("c")} | {productTypeRepository.Get(product.ProductTypeId).Name}")</option>
                     }
                 </InputSelect>
@@ -52,9 +52,13 @@
 @code {
     private Order OrderModel = new Order();
 
-    public int Amount => productRepository.Get(Convert.ToInt32(OrderModel.StringProductId)).Amount;
-    public string Price => productRepository.Get(Convert.ToInt32(OrderModel.StringProductId)).Price.ToString("c");
-    public string Type => productTypeRepository.Get(productRepository.Get(Convert.ToInt32(OrderModel.StringProductId)).ProductTypeId).Name;
+    protected override void OnInitialized() {
+        OrderModel.StringProductId = string.Empty;
+    }
+
+    public string Amount => !string.IsNullOrEmpty(OrderModel.StringProductId) ? productRepository.Get(Convert.ToInt32(OrderModel.StringProductId)).Amount.ToString() : string.Empty;
+    public string Price => !string.IsNullOrEmpty(OrderModel.StringProductId) ? productRepository.Get(Convert.ToInt32(OrderModel.StringProductId)).Price.ToString("c") : string.Empty;
+    public string Type => !string.IsNullOrEmpty(OrderModel.StringProductId) ? productTypeRepository.Get(productRepository.Get(Convert.ToInt32(OrderModel.StringProductId)).ProductTypeId).Name : string.Empty;
 
 
     private void OnValidSubmit() {

@@ -1,2 +1,6 @@
 .vs/
 VirtualServersApp/.vscode/
+VirtualServersApp/Client/bin/
+VirtualServersApp/Client/obj/
+VirtualServersApp/Server/bin/
+VirtualServersApp/Server/obj/
