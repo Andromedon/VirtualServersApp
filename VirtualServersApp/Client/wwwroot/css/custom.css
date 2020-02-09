@@ -1,0 +1,22 @@
+﻿.server-main-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.server-name-container {
+    flex: 3;
+    box-sizing: border-box;
+    max-width: 25%;
+    padding: 0 30px 0 30px;
+}
+
+.server-child-container {
+    flex: 2;
+    box-sizing: border-box;
+}
+
+.button-child-container {
+    flex: 1;
+    box-sizing: border-box;
+}

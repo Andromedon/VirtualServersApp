@@ -1,0 +1,44 @@
+﻿@page "/servers"
+<StatusPanelComponent @ref="StatusPanel" Message="@Message" MessageType="@MessageType" />
+<div class="container">
+    <p>Servers online: <b>@NumberOfServersOnline</b></p>
+    <p>Servers online left: <b>@NumberOfServersOnlineLeft</b></p>
+    <p>Servers already created: <b>@MemoryCache.ServersAlreadyCreated</b></p>
+</div>
+<hr>
+<br>
+<div class="container">
+    <label for="serversLeft">
+        Servers Left:
+        <input id="serversLeft" type="text" class="form-control" value="@ServersLeft" disabled>
+    </label>
+    <br>
+    <label for="serverName">
+        Server Name:
+        <input id="serverName" autocomplete="off" type="text" class="form-control" placeholder="Enter Sever Name" @onkeypress="@(e => OnKeyPress(e))" @bind-value="@ServerName" @bind-value:event="oninput" @onkeyup="OnUpdateServerName" disabled="@ServerNameInputDisabled" required />
+    </label>
+    <br><br>
+    <button id="serverButton" class="btn btn-primary" @onclick="OnServerButtonClick" disabled="@ServersButtonDisabled">@ServerButtonName</button>
+</div>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            @if (Servers.Any()) {
+                <div class="shadow p-3 mb-5 bg-white rounded" style="text-align:center; overflow: auto;">
+                    <div class="row"><div class="col-sm"><h4>Servers</h4></div></div>
+                    <ServersListComponent Servers="@Servers" NumberOfServersOnlineLeft="@NumberOfServersOnlineLeft" NumberOfServersOnlineChanged="@OnServerChangeStatus" ShowMessage="@ShowMessage" Removed="@OnServerRemoved" FavouriteStatusChanged="@OnFavouriteStatusChanged" />
+                </div>
+            }
+        </div>
+        <div class="col-sm">
+            @if (Servers.Any(s => s.IsFavourite)) {
+                <div class="shadow p-3 mb-5 bg-white rounded" style="text-align:center; overflow: auto;">
+                    <div class="row"><div class="col-sm"><h4>Favourites</h4></div></div>
+                    <FavouritesListComponent Favourites="@Servers.Where(s => s.IsFavourite).OrderBy(s => s.Name).ToList()"></FavouritesListComponent>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

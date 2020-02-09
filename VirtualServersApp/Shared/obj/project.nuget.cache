@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "zfG7nEyCt6NSt8+tGj1HwMft37U6kEReA919/VC2B5qSK3iCSKfOHnIB627GIsy5gsNnmG7ZXMxNZrqyFaUYmw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\RW\\Documents\\Dev\\Repositories\\VirtualServersApp\\VirtualServersApp\\Shared\\VirtualServersApp.Shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\RW\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

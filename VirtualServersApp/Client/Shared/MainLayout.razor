@@ -1,0 +1,23 @@
+﻿@inherits LayoutComponentBase
+
+<div class="container">
+    <br />
+    <div class="row">
+        <div class="col-xl-12" style="marg">
+            <NavMenuComponent />
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <CascadingValue Value="TextStyle">
+                @Body
+            </CascadingValue>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string TextStyle = "color: #0c5460;";
+
+}

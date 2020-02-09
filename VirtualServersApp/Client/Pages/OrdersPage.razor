@@ -1,0 +1,44 @@
+﻿@page "/orders"
+@inject NavigationManager navigationManager
+@inject IOrderRepository orderRepository
+@inject IProductRepository productRepository
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            @if (!ServersOrders.Any()) {
+                <h4 style="text-align: center">No orders has been made so far...</h4>
+            }
+            else {
+                if (ServersOrders.Any()) {
+                    <div class="shadow p-3 mb-5 bg-white rounded" style="text-align:center; overflow: auto;">
+                        <div class="row"><div class="col-sm"><h4>Servers</h4></div></div>
+                        <OrdersListComponent Orders="@ServersOrders.ToList()" />
+                    </div>
+                }
+                if (OnlineOrders.Any()) {
+                    <div class="shadow p-3 mb-5 bg-white rounded" style="text-align:center; overflow: auto;">
+                        <div class="row"><div class="col-sm"><h4>Online</h4></div></div>
+                        <OrdersListComponent Orders="@OnlineOrders.ToList()" />
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<div class="container">
+    <button class="btn btn-primary" @onclick="OnNewOrderButtonClick">New Order</button>
+</div>
+
+@code {
+    public IEnumerable<Order> ServersOrders { get; set; } = new List<Order>();
+    public IEnumerable<Order> OnlineOrders { get; set; } = new List<Order>();
+
+    public void OnNewOrderButtonClick() {
+        navigationManager.NavigateTo("neworder");
+    }
+
+    protected override void OnInitialized() {
+        ServersOrders = orderRepository.GetList().Where(o => productRepository.Get(o.ProductId).ProductTypeId == 1);
+        OnlineOrders = orderRepository.GetList().Where(o => productRepository.Get(o.ProductId).ProductTypeId == 2);
+    }
+}

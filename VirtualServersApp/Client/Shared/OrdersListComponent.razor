@@ -1,0 +1,11 @@
+﻿@foreach (var order in Orders.OrderByDescending(o => o.CreatedDate).OrderBy(o => o.Completed)) {
+    <hr />
+    <div class="row">
+        <OrderComponent OrderModel="@order" />
+    </div>
+
+}
+
+@code {
+    [Parameter] public List<Order> Orders { get; set; }
+}

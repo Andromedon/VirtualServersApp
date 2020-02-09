@@ -1,0 +1,64 @@
+﻿@page "/neworder"
+@inject IProductRepository productRepository
+@inject IProductTypeRepository productTypeRepository
+@inject NavigationManager navigationManager
+
+<EditForm Model="OrderModel" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="containter">
+        <div class="row">
+            <h4>Make your order</h4>
+        </div>
+        <br />
+        <div class="row">
+            <label>
+                Product:
+                <InputSelect class="form-control" @bind-Value="@OrderModel.StringProductId">
+                    @foreach (var product in productRepository.GetList().OrderBy(p => p.Amount).OrderBy(p => p.ProductTypeId)) {
+                        <option value="@product.Id.ToString()">@($"{product.Amount} | {product.Price.ToString("c")} | {productTypeRepository.Get(product.ProductTypeId).Name}")</option>
+                    }
+                </InputSelect>
+            </label>
+        </div>
+        <br />
+        <div class="row">
+            <label>
+                Amount:
+            </label>
+            <p style="font-weight: bold; margin-left: 30px">@Amount</p>
+        </div>
+        <br />
+        <div class="row">
+            <label>
+                Price:
+            </label>
+            <p style="font-weight: bold; margin-left: 30px">@Price</p>
+        </div>
+        <br />
+        <div class="row">
+            <label>
+                Type:
+            </label>
+            <p style="font-weight: bold; margin-left: 30px">@Type</p>
+        </div>
+        <br />
+        <div class="row">
+            <button class="btn btn-primary" type="submit">Make your order</button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    private Order OrderModel = new Order();
+
+    public int Amount => productRepository.Get(Convert.ToInt32(OrderModel.StringProductId)).Amount;
+    public string Price => productRepository.Get(Convert.ToInt32(OrderModel.StringProductId)).Price.ToString("c");
+    public string Type => productTypeRepository.Get(productRepository.Get(Convert.ToInt32(OrderModel.StringProductId)).ProductTypeId).Name;
+
+
+    private void OnValidSubmit() {
+        Console.WriteLine($"Validated! :) ProductId: {OrderModel.StringProductId}");
+    }
+
+}

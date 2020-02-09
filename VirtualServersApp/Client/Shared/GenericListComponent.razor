@@ -1,0 +1,9 @@
+﻿@typeparam TItem
+@foreach (var element in List) {
+    ElementTemplate(element);
+}
+
+@code {
+    [Parameter] public List<TItem> List { get; set; }
+    [Parameter] public RenderFragment<TItem> ElementTemplate { get; set; }
+}

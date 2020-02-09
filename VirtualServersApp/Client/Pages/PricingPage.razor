@@ -1,0 +1,55 @@
+﻿@page "/pricing"
+@inject IProductRepository productRepository
+<br />
+<div class="container">
+    @if (!ServerProducts.Any() && !OnlineProducts.Any()) {
+        <h4>No products are available...</h4>
+    }
+    else {
+        if (ServerProducts.Any()) {
+            <div class="row" style="text-align:center !important;"><h4>Servers</h4></div>
+            <div class="row">
+                <table class="table" style="text-align:center">
+                    <tr>
+                        <th>Amount</th>
+                        <th>Price</th>
+                    </tr>
+                    @foreach (var product in ServerProducts) {
+                        <tr>
+                            <td>@product.Amount</td>
+                            <td>@product.Price.ToString("c")</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+        if (OnlineProducts.Any()) {
+            <div class="row" style="text-align:center !important;"><h4>Online</h4></div>
+            <div class="row">
+                <table class="table" style="text-align:center">
+                    <tr>
+                        <th>Amount</th>
+                        <th>Price</th>
+                    </tr>
+                    @foreach (var product in OnlineProducts) {
+                        <tr>
+                            <td>@product.Amount</td>
+                            <td>@product.Price.ToString("c")</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    public IEnumerable<Product> ServerProducts { get; set; }
+
+    public IEnumerable<Product> OnlineProducts { get; set; }
+
+    protected override void OnInitialized() {
+        ServerProducts = productRepository.GetList().Where(p => p.ProductTypeId == 1);
+        OnlineProducts = productRepository.GetList().Where(p => p.ProductTypeId == 2);
+    }
+}

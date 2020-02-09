@@ -1,0 +1,21 @@
+﻿@page "/contact"
+    <StatusPanelComponent Message="@Message" MessageType="@MessageType" />
+    <hr />
+    <div class="container">
+        <label for="messageFrom">
+            Email address:
+            <input id="messageFrom" type="email" class="form-control" placeholder="name@example.com" @bind-value="@MessageFrom" required>
+        </label>
+        <br>
+        <label for="messageSubject">
+            Subject:
+            <input id="messageSubject" type="text" class="form-control" @bind-value="@MessageSubject" required>
+        </label>
+        <br>
+        <label for="messageBody">
+            Message:
+            <input id="messageBody" type="text" class="form-control" @bind-value="@MessageBody" required />
+        </label>
+        <br><br>
+        <button id="sendButton" class="btn btn-primary" @onclick="SendMessage">Send</button>
+    </div>

@@ -1,0 +1,6 @@
+﻿@foreach (var server in Favourites.OrderBy(f => f.FavouriteSince)) {
+    <hr />
+    <div class="row">
+        <FavouriteComponent ServerModel="server"></FavouriteComponent>
+    </div>
+}

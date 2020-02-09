@@ -1,0 +1,7 @@
+﻿@foreach (var server in Servers.OrderBy(s => s.Id)) {
+    <hr />
+    <div class="row">
+        <ServerComponent ServerModel="@server" NumberOfServersOnlineLeft="@NumberOfServersOnlineLeft" NumberOfServersOnlineChanged="@OnServerChangeStatus" RegisterMessage="@RegisterMessage" Removed="@OnRemoveServer" FavouriteStatusChanged="@OnFavouriteStatusChanged" />
+    </div>
+
+}

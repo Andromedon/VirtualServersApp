@@ -1,0 +1,24 @@
+﻿<div class="server-main-container">
+    <div class="server-name-container">
+        <p style="font-weight: bold; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">@ServerModel.Name</p>
+    </div>
+    <div class="server-child-container">
+        <span style="@ServerCreationStatusStyle">@ServerStatus</span>
+    </div>
+    <div class="server-child-container">
+        <span style="font-weight: bold">@ServerModel.CreatedDate.ToString("yyyy/MM/dd HH:mm:ss")</span>
+    </div>
+    <div class="button-child-container">
+        <button class="@ServerStatusButtonStyle" type="button" @onclick="OnStatusButtonClick"><i class="oi oi-power-standby"></i></button>
+    </div>
+    <div class="button-child-container">
+        <button @onclick="OnFavouriteStatusChanged" class="@FavouriteButtonStyle"><i class="oi oi-star"></i></button>
+    </div>
+    <div class="button-child-container">
+        <button @onclick="RemoveServer" class="btn btn-danger btn-sm"><i class="oi oi-trash"></i></button>
+    </div>
+</div>
+
+<ConfirmationComponent @ref="confirmation" onCancel="OnCancel" onConfirm="OnConfirm">
+    <div style="font-weight: bold; @TextStyle">Are you sure you want to delete @ServerModel.Name server?</div>
+</ConfirmationComponent>

@@ -1,0 +1,35 @@
+﻿@inject IProductRepository productRepository
+    <div class="server-main-container">
+        <div class="server-name-container">
+            <p style="font-weight: bold; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">@Product.Amount</p>
+        </div>
+        <div class="server-name-container">
+            <p style="font-weight: bold; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">@Product.Price.ToString("c")</p>
+        </div>
+        <div class="server-child-container">
+            <span style="font-weight: bold">@OrderModel.CreatedDate.ToString("yyyy/MM/dd HH:mm:ss")</span>
+        </div>
+        <div class="server-child-container">
+            <span style="@OrderStatusStyle">@OrderStatus</span>
+        </div>
+    </div>
+
+@code {
+    [Parameter] public Order OrderModel { get; set; }
+
+    public Product Product => productRepository.Get(OrderModel.ProductId);
+
+    protected string OrderStatus => GetOrderStatus();
+
+    protected string OrderStatusStyle => GetOrderStatusColor();
+
+    private string GetOrderStatus() {
+        return OrderModel.Completed ? "Completed" : "Pending";
+    }
+
+    protected string GetOrderStatusColor() {
+        string style = "color: ";
+        style += OrderModel.Completed ? "green" : "red";
+        return $"{style}; font-weight: bold;";
+    }
+}
