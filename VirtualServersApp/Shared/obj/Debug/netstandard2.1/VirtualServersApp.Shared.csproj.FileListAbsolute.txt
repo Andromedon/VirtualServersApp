@@ -1,9 +1,0 @@
-C:\Users\RW\Documents\Dev\Repositories\VirtualServersApp\VirtualServersApp\Shared\bin\Debug\netstandard2.1\VirtualServersApp.Shared.deps.json
-C:\Users\RW\Documents\Dev\Repositories\VirtualServersApp\VirtualServersApp\Shared\bin\Debug\netstandard2.1\VirtualServersApp.Shared.dll
-C:\Users\RW\Documents\Dev\Repositories\VirtualServersApp\VirtualServersApp\Shared\bin\Debug\netstandard2.1\VirtualServersApp.Shared.pdb
-C:\Users\RW\Documents\Dev\Repositories\VirtualServersApp\VirtualServersApp\Shared\obj\Debug\netstandard2.1\VirtualServersApp.Shared.AssemblyInfoInputs.cache
-C:\Users\RW\Documents\Dev\Repositories\VirtualServersApp\VirtualServersApp\Shared\obj\Debug\netstandard2.1\VirtualServersApp.Shared.AssemblyInfo.cs
-C:\Users\RW\Documents\Dev\Repositories\VirtualServersApp\VirtualServersApp\Shared\obj\Debug\netstandard2.1\VirtualServersApp.Shared.dll
-C:\Users\RW\Documents\Dev\Repositories\VirtualServersApp\VirtualServersApp\Shared\obj\Debug\netstandard2.1\VirtualServersApp.Shared.pdb
-C:\Users\RW\Documents\Dev\Repositories\VirtualServersApp\VirtualServersApp\Shared\obj\Debug\netstandard2.1\VirtualServersApp.Shared.csprojAssemblyReference.cache
-C:\Users\RW\Documents\Dev\Repositories\VirtualServersApp\VirtualServersApp\Shared\obj\Debug\netstandard2.1\VirtualServersApp.Shared.csproj.CoreCompileInputs.cache
