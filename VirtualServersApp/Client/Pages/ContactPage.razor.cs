@@ -1,5 +1,5 @@
 ﻿using VirtualServersApp.Shared;
-using VirtualServersApp.Shared.Models;
+using VirtualServersApp.Shared.Entities;
 
 namespace VirtualServersApp.Client.Pages {
 

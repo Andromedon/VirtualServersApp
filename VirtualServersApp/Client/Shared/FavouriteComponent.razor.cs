@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using VirtualServersApp.Shared.Models;
+using VirtualServersApp.Shared.Entities;
 
 namespace VirtualServersApp.Client.Shared
 {

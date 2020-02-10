@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using VirtualServersApp.Shared.Services;
+using VirtualServersApp.Client.Repositories;
 
 namespace VirtualServersApp.Client {
     public class Startup {

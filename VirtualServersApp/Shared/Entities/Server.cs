@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VirtualServersApp.Shared.Models {
+namespace VirtualServersApp.Shared.Entities {
 
     public class Server {
         public int Id { get; set; }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using VirtualServersApp.Shared.Models;
+using VirtualServersApp.Shared.Entities;
 
 namespace VirtualServersApp.Client.Shared {
 

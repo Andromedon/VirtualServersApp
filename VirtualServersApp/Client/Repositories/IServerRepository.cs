@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VirtualServersApp.Shared.Models;
+using VirtualServersApp.Shared.Entities;
 
-namespace VirtualServersApp.Shared.Services
-{
+namespace VirtualServersApp.Client.Repositories {
     public interface IServerRepository
     {
         void Insert(Server value);

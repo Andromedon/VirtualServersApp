@@ -1,4 +1,4 @@
-﻿namespace VirtualServersApp.Shared.Models {
+﻿namespace VirtualServersApp.Shared.Entities {
 
     public class Product {
         public int Id { get; set; }

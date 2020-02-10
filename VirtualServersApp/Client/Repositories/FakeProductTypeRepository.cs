@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using VirtualServersApp.Shared.Models;
+using VirtualServersApp.Shared.Entities;
 
-namespace VirtualServersApp.Shared.Services {
+namespace VirtualServersApp.Client.Repositories {
 
     public class FakeProductTypeRepository : IProductTypeRepository {
 

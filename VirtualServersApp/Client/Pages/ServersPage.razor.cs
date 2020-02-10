@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using VirtualServersApp.Client.Shared;
-using VirtualServersApp.Shared.Models;
+using VirtualServersApp.Shared.Entities;
 using VirtualServersApp.Shared.Services;
+using VirtualServersApp.Client.Repositories;
 
 namespace VirtualServersApp.Client.Pages {
 
