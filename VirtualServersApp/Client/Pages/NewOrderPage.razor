@@ -2,45 +2,48 @@
 @inject IProductRepository productRepository
 @inject IProductTypeRepository productTypeRepository
 @inject NavigationManager navigationManager
+@using System.ComponentModel.DataAnnotations
 
 <EditForm Model="OrderModel" OnValidSubmit="OnValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
     <div class="containter">
         <div class="row">
             <h4>Make your order</h4>
         </div>
         <br />
         <div class="row">
-            <label>
-                Product:
-                <InputSelect class="form-control" @bind-Value="@OrderModel.StringProductId">
-                    @foreach (var product in productRepository.GetList().Where(p => p.Price > 0).OrderBy(p => p.Amount).OrderBy(p => p.ProductTypeId)) {
-                        <option value="@product.Id.ToString()">@($"{product.Amount} | {product.Price.ToString("c")} | {productTypeRepository.Get(product.ProductTypeId).Name}")</option>
-                    }
-                </InputSelect>
-            </label>
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <label>
+                    Product:
+                    <InputSelect class="form-control" @bind-Value="@ProductId">
+                        <option value="0">--Select a product</option>
+                        @foreach (var product in productRepository.GetList().Where(p => p.Price > 0).OrderBy(p => p.Amount).OrderBy(p => p.ProductTypeId)) {
+                            <option value="@product.Id.ToString()">@($"{product.Amount} | {product.Price.ToString("c")} | {productTypeRepository.Get(product.ProductTypeId).Name}")</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="@(() => ProductId)" />
+                </label>
+            </div>
         </div>
-        <br />
         <div class="row">
             <label>
                 Amount:
             </label>
-            <p style="font-weight: bold; margin-left: 30px">@Amount</p>
+            <p style="font-weight: bold; margin-left: 10px">@Amount</p>
         </div>
         <br />
         <div class="row">
             <label>
                 Price:
             </label>
-            <p style="font-weight: bold; margin-left: 30px">@Price</p>
+            <p style="font-weight: bold; margin-left: 10px">@Price</p>
         </div>
         <br />
         <div class="row">
             <label>
                 Type:
             </label>
-            <p style="font-weight: bold; margin-left: 30px">@Type</p>
+            <p style="font-weight: bold; margin-left: 10px">@Type</p>
         </div>
         <br />
         <div class="row">
@@ -52,17 +55,21 @@
 @code {
     private Order OrderModel = new Order();
 
+    [Required(ErrorMessage = "Product field is required!")]
+    public string ProductId { get; set; }
+
+    private Product _product => productRepository.Get(Convert.ToInt32(ProductId));
+    private ProductType _productType => productTypeRepository.Get(_product != null ? _product.ProductTypeId : 0);
+    public string Amount => _product != null ? _product.Amount.ToString() : string.Empty;
+    public string Price => _product != null ? _product.Price.ToString("c") : string.Empty;
+    public string Type => _productType?.Name;
+
     protected override void OnInitialized() {
-        OrderModel.StringProductId = string.Empty;
+        ProductId = "0";
     }
 
-    public string Amount => !string.IsNullOrEmpty(OrderModel.StringProductId) ? productRepository.Get(Convert.ToInt32(OrderModel.StringProductId)).Amount.ToString() : string.Empty;
-    public string Price => !string.IsNullOrEmpty(OrderModel.StringProductId) ? productRepository.Get(Convert.ToInt32(OrderModel.StringProductId)).Price.ToString("c") : string.Empty;
-    public string Type => !string.IsNullOrEmpty(OrderModel.StringProductId) ? productTypeRepository.Get(productRepository.Get(Convert.ToInt32(OrderModel.StringProductId)).ProductTypeId).Name : string.Empty;
-
-
     private void OnValidSubmit() {
-        Console.WriteLine($"Validated! :) ProductId: {OrderModel.StringProductId}");
+        Console.WriteLine($"Validated! :) ProductId: {ProductId}");
     }
 
 }
