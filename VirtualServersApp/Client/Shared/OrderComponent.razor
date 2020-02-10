@@ -1,18 +1,22 @@
 ﻿@inject IProductRepository productRepository
-    <div class="server-main-container">
-        <div class="server-name-container">
-            <p style="font-weight: bold; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">@Product.Amount</p>
-        </div>
-        <div class="server-name-container">
-            <p style="font-weight: bold; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">@Product.Price.ToString("c")</p>
-        </div>
-        <div class="server-child-container">
-            <span style="font-weight: bold">@OrderModel.CreatedDate.ToString("yyyy/MM/dd HH:mm:ss")</span>
-        </div>
-        <div class="server-child-container">
-            <span style="@OrderStatusStyle">@OrderStatus</span>
-        </div>
+@inject IOrderRepository orderRepository
+<div class="server-main-container">
+    <div class="server-name-container">
+        <p style="font-weight: bold; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">@Product.Amount</p>
     </div>
+    <div class="server-name-container">
+        <p style="font-weight: bold; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">@Product.Price.ToString("c")</p>
+    </div>
+    <div class="server-child-container">
+        <span style="font-weight: bold">@OrderModel.CreatedDate.ToString("yyyy/MM/dd HH:mm:ss")</span>
+    </div>
+    <div class="server-child-container">
+        <span style="@OrderStatusStyle">@OrderStatus</span>
+    </div>
+        <div class="server-child-container">
+            <button class="@GetPaymentButtonStyle()" @onclick="ManagePayment" disabled="@OrderModel.Completed">@PaymentButtonText</button>
+        </div>
+</div>
 
 @code {
     [Parameter] public Order OrderModel { get; set; }
@@ -23,8 +27,19 @@
 
     protected string OrderStatusStyle => GetOrderStatusColor();
 
+    private string PaymentButtonText => OrderModel.Completed ? "Paid" : "Pay";
+
     private string GetOrderStatus() {
         return OrderModel.Completed ? "Completed" : "Pending";
+    }
+
+    private string GetPaymentButtonStyle() {
+        return OrderModel.Completed ? "btn btn-default" : "btn btn-success";
+    }
+
+    private void ManagePayment() {
+        OrderModel.Completed = true;
+        orderRepository.Update(OrderModel);
     }
 
     protected string GetOrderStatusColor() {

@@ -16,7 +16,8 @@ namespace VirtualServersApp.Shared.Services {
         };
 
         public void Delete(int id) {
-            throw new NotImplementedException();
+            var order = _orders.SingleOrDefault(s => s.Id == id);
+            _orders.Remove(order);
         }
 
         public Order Get(int id) {
@@ -28,11 +29,13 @@ namespace VirtualServersApp.Shared.Services {
         }
 
         public void Insert(Order value) {
-            throw new NotImplementedException();
+            _orders.Add(value);
         }
 
         public void Update(Order value) {
-            throw new NotImplementedException();
+            var oldOrder = _orders.SingleOrDefault(o => o.Id == value.Id);
+            _orders.Remove(oldOrder);
+            _orders.Add(value);
         }
     }
 }

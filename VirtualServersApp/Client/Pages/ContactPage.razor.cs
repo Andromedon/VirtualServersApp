@@ -1,8 +1,10 @@
 ﻿using VirtualServersApp.Shared;
+using VirtualServersApp.Shared.Models;
 
 namespace VirtualServersApp.Client.Pages {
 
     public partial class ContactPage {
+        private Order order = new Order();
         public string MessageSubject { get; set; }
         public string MessageBody { get; set; }
 

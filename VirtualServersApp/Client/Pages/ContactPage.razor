@@ -1,6 +1,7 @@
 ﻿@page "/contact"
-    <StatusPanelComponent Message="@Message" MessageType="@MessageType" />
-    <hr />
+<StatusPanelComponent Message="@Message" MessageType="@MessageType" />
+<hr />
+<EditForm Model="order" OnValidSubmit="SendMessage">
     <div class="container">
         <label for="messageFrom">
             Email address:
@@ -14,8 +15,9 @@
         <br>
         <label for="messageBody">
             Message:
-            <input id="messageBody" type="text" class="form-control" @bind-value="@MessageBody" required />
+            <InputTextArea id="messageBody" type="text" class="form-control" @bind-Value="@MessageBody" required />
         </label>
         <br><br>
         <button id="sendButton" class="btn btn-primary" @onclick="SendMessage">Send</button>
     </div>
+</EditForm>

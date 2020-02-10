@@ -1,8 +1,10 @@
 ﻿@page "/neworder"
 @inject IProductRepository productRepository
+@inject IOrderRepository orderRepository
 @inject IProductTypeRepository productTypeRepository
 @inject NavigationManager navigationManager
 @using System.ComponentModel.DataAnnotations
+@using System.Linq
 
 <EditForm Model="OrderModel" OnValidSubmit="OnValidSubmit">
     <div class="containter">
@@ -15,7 +17,7 @@
             <div class="form-group">
                 <label>
                     Product:
-                    <InputSelect class="form-control" @bind-Value="@ProductId">
+                    <InputSelect class="form-control" @bind-Value="@ProductId" required>
                         <option value="0">--Select a product</option>
                         @foreach (var product in productRepository.GetList().Where(p => p.Price > 0).OrderBy(p => p.Amount).OrderBy(p => p.ProductTypeId)) {
                             <option value="@product.Id.ToString()">@($"{product.Amount} | {product.Price.ToString("c")} | {productTypeRepository.Get(product.ProductTypeId).Name}")</option>
@@ -69,7 +71,12 @@
     }
 
     private void OnValidSubmit() {
-        Console.WriteLine($"Validated! :) ProductId: {ProductId}");
+        int productId = Convert.ToInt32(ProductId);
+        if (productId > 0) {
+            int id = orderRepository.GetList().OrderByDescending(o => o.Id).FirstOrDefault().Id;
+            orderRepository.Insert(new Order { Id = id + 1, ProductId = productId, CreatedDate = DateTime.Now, Completed = false });
+        }
+        navigationManager.NavigateTo("orders");
     }
 
 }
